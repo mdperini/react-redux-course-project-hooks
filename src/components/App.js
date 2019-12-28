@@ -6,29 +6,29 @@ import {
     handleInitialData
 } from '../actions/shared'
 
-class App extends React.Component {
-    componentDidMount() {
-        const { dispatch } = this.props
-
+const App = ({loading, dispatch}) => {
+    const [initialData, setInitialData] = React.useState(false)
+   
+    //componentDidMount() {
+    React.useEffect(()=> {
         dispatch(handleInitialData())
-    }
 
-    render() {
-        const { loading } = this.props
+        setInitialData(true)
+    }, [initialData, dispatch])  
 
-        if (loading === true) {
+    if (loading) {
             return <h3>Loading...</h3>
-        }
-
-        return (
-            <div>
-                <ConnectedTodos />
-                <ConnectedGoals />
-            </div>
-        )
     }
+
+    return (
+        <div>
+            <ConnectedTodos />
+            <ConnectedGoals />
+        </div>
+    )
 }
 
-export default connect((state) => ({
-    loading: state.loading
+export default connect((state, dispatch) => ({
+    loading: state.loading,
+    dispatch
 }))(App)
