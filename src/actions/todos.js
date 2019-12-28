@@ -49,7 +49,7 @@ export const handleDeleteTodo = (todo) => {
 export const handleToggle = (id) => {
     return (dispatch) => {
         dispatch(toggleTodo(id))
-        return API.toggleTodo(id)
+        return API.saveTodoToggle(id)
             .catch(() => {
                 dispatch(toggleTodo(id))
                 alert(`An error occured. Try again.`)
